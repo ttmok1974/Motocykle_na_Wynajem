@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz logowania</title>
+    <script>
+
+        let hasło_z_Storage = localStorage.getItem("hasło");
+        let email_z_Storage = localStorage.getItem("email");
+        let nazwa_z_Storage = localStorage.getItem("username");
+        console.log("Hasło z localStorage:", hasło_z_Storage);
+        console.log("Email z localStorage:", email_z_Storage);
+        console.log("Nazwa z localStorage:", nazwa_z_Storage);
+
+        function SprawdzanieHasła()
+        {
+            event.preventDefault();
+            let hasło = document.getElementById("password").value;
+            let email = document.getElementById("email").value;
+            if(hasło==hasło_z_Storage && email==email_z_Storage)
+            {
+                alert("Przekierowywanie na główną witryne");
+                window.location.href='EasyRide_Motocykle.html';
+            }
+            else if(hasło!=haslo)
+            {
+                alert("To nie jest hasło do twojego konta");
+            }
+			else if(hasło=="")
+			{
+				alert("Nie podałeś hasła");
+			}
+        }
+
+
+    </script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-width: 500px;
+            max-width: 3000px;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #6e8efb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(110, 142, 251, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #5a7bd8;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #6e8efb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Zaloguj się do portalu</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="email">Twój E-mail</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn" onclick="SprawdzanieHasła()">Zaloguj się</button>
+            <br><p>Nie masz konta? <a href="EasyRide_Motocykle_rejestracja.html">Zajrestruj się</a></p>
+        </form>
+    </div>
+</body>
+</html>

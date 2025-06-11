@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz logowania</title>
+    <script>
+        function SprawdzanieHasła()
+        {
+            event.preventDefault();
+
+            let hasło = document.getElementById("password").value;
+            let hasło2 = document.getElementById("drugie_password").value;
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+
+            if(hasło==hasło2 && hasło!="" && hasło.length >= 5 && hasło2.length >= 5)
+            {
+                alert("Konto zostało pomyślnie utworzone!");
+                localStorage.setItem("hasło", hasło);
+                localStorage.setItem("email", email);
+                localStorage.setItem("username", username);
+
+                window.location.href = "EasyRide_Motocykle.html";
+            }
+            else if(hasło!=hasło2)
+            {
+                alert("Twoje hasła nie są takie same");
+            }
+			else if(hasło==""||hasło2=="")
+			{
+				alert("Nie podałeś hasła");
+			}
+            else if(hasło.length < 5 || hasło2.length < 5)
+            {
+                alert("Hasło za krótkie")
+            }
+        }
+
+
+    </script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-width: 500px;
+            max-width: 3000px;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #6e8efb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(110, 142, 251, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #5a7bd8;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #6e8efb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Zarejestruj się do portalu</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Nazwa użytkownika</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Twój E-mail</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="drugie_password">Powtórz Hasło</label>
+                <input type="drugie_password" id="drugie_password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn" onclick="SprawdzanieHasła()">Zarejestruj się</button>
+        </form>
+    </div>
+</body>
+</html>

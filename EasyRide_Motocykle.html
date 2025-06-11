@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motocykle Na Wynajem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        window.onload = function()
+        {
+            let hasło_z_Storage = localStorage.getItem("hasło");
+            let email_z_Storage = localStorage.getItem("email");
+            let nazwa_z_Storage = localStorage.getItem("username");
+            console.log("Hasło z localStorage:", hasło_z_Storage);
+            console.log("Email z localStorage:", email_z_Storage);
+            console.log("Nazwa z localStorage:", nazwa_z_Storage);
+
+            if(nazwa_z_Storage =! "")
+            {
+                document.getElementById("nazwa_uży").innerHTML = "Witaj, "+localStorage.getItem("username");
+            }
+            else
+            {
+                document.getElementById("nazwa_uży").innerHTML = "Zaloguj sie dla pełnych możliwości na stornie";
+            }     
+        };
+        
+        function SzukanieOfert(idSekcji)
+        {
+            var sekcja = document.getElementById(idSekcji);
+            sekcja.scrollIntoView({behavior: 'smooth'});
+        }
+        function showMotorcycleInfo(id) {
+            let descriptions = {
+                1: "Motocykl "+id+": Jakiś 1 - sportowy, szybki i agresywny.",
+                2: "Motocykl "+id+": Jakiś 2 - sportowy, szybki i agresywny.",
+                3: "Motocykl "+id+": Jakiś 3 - sportowy, szybki i agresywny.",
+                4: "Motocykl "+id+": Jakiś 4 - sportowy, szybki i agresywny.",
+                5: "Motocykl "+id+": Jakiś 5 - sportowy, szybki i agresywny.",
+                6: "Motocykl "+id+": Jakiś super klawy 6 - sportowy, szybki i agresywny.",
+                7: "Motocykl "+id+": Jakiś super klawy 7 - sportowy, szybki i agresywny.",
+                8: "Motocykl "+id+": Jakiś super klawy 8 - sportowy, szybki i agresywny.",
+            };
+
+            document.getElementById("motorDescription").innerText = descriptions[id];
+            document.getElementById("motorInfo").style.display = "block";
+        }
+
+        function hideMotorcycleInfo() 
+        {
+            document.getElementById("motorInfo").style.display = "none";
+        }
+
+        function calculateDays() 
+        {
+            let start = document.getElementById("startDate").value;
+            let end = document.getElementById("endDate").value;
+            let resultDiv = document.getElementById("result");
+
+            if (start && end) {
+                let startDate = new Date(start);
+                let endDate = new Date(end);
+                
+                let difference = (endDate - startDate) / (1000 * 60 * 60 * 24); // Konwersja milisekund na dni
+
+                let cena = difference * 350;
+                
+                if (difference >= 0) {
+                    resultDiv.innerHTML = `📅 Okres wypożyczenia: <b>${difference} dni</b> <input type='button' value='Zarezerwuj'></input> <br> <p>Koszt wynosiłby: <b>${cena}zł</b></p>`;
+                } else {
+                    resultDiv.innerHTML = `<span style="color:red;">⚠ Data końcowa nie może być wcześniejsza niż początkowa!</span>`;
+                }
+            } else {
+                resultDiv.innerHTML = "";
+            }
+        }
+    </script>
+    
+<style>
+    body {
+        margin: 0;
+        font-family: 'Roboto', Arial, sans-serif;
+        background: radial-gradient(circle, #f3f4f6, #d6d8db);
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .motor-info {
+        display: none; /* Domyślnie ukryte */
+        position: absolute;
+        top: 85%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 5px solid black;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        width: 700px;
+        border-radius: 20px;
+        height: 300px;
+        z-index: 9999; /* To ensure it displays over other content */
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #444;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    header img {
+        height: 50px;
+    }
+
+    header nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        padding: 5px 15px;
+        background: #007bff;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    header nav a:hover {
+        background-color: #0056b3;
+    }
+
+    .main-banner {
+        text-align: center;
+        padding: 50px 20px;
+        position: relative;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://example.com/motorcycle.jpg') no-repeat center center/cover;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .main-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('images.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.4;
+        z-index: -1;
+    }
+
+    .main-banner h1 {
+        font-size: 3em;
+        margin: 10px 0;
+    }
+
+    .main-banner p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+
+    .main-banner .cta-button {
+        padding: 15px 30px;
+        font-size: 1rem;
+        color: white;
+        background-color: #e63e00;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .main-banner .cta-button:hover {
+        background-color: #c52e00;
+        transform: translateY(-3px);
+    }
+
+    .gallery-container {
+    overflow: hidden;
+    display: flex; /* Improved for gallery layout */
+    justify-content: center;
+    margin: 20px auto;
+    padding: 10px;
+    max-width: 100%; /* Full width to make the gallery more flexible */
+    height: 300px;
+    }
+
+    .gallery {
+        display: flex; /* Changed to flex for consistent alignment */
+        gap: 15px;
+        padding: 15px;
+        width: 100%;
+        max-width: 1200px; /* Increased max-width for larger displays */
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth; /* Smooth scrolling when navigating through the gallery */
+    }
+
+    .gallery img {
+        width: 280px;
+        height: 220px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        margin: 0 20px;
+        object-fit: cover;
+        opacity: 0.8; /* Slightly reduced opacity for a more subtle effect */
+        transform: scale(1.15);
+    }
+
+    .gallery img:hover {
+        transform: scale(1.25); /* Slightly larger scale on hover */
+        opacity: 1; /* Full opacity on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Stronger shadow effect on hover */
+    }
+
+    .gallery img:active {
+        transform: scale(1.05); /* Slightly smaller scale when clicked */
+    }
+
+    @media screen and (max-width: 768px) {
+        .gallery {
+            gap: 10px; /* Reduced gap for smaller screens */
+        }
+        .gallery img {
+            width: 220px; /* Adjusted image width for smaller screens */
+            height: 180px; /* Adjusted height for better responsiveness */
+        }
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        position: sticky;
+        bottom: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+</style>
+</head>
+<body>
+    <header>
+        <img src="easyride.png" alt="EasyRide Logo">
+        <h2 id="nazwa_uży" style="background-color: gray; border-radius: 5px; padding: 5px;"></h2>
+        <nav>
+            <a href="EasyRide_Motocykle_logowanie.html">Zaloguj się</a>
+            <a href="EasyRide_Motocykle_rejestracja.html">Zarejestruj się</a>
+        </nav>
+    </header>
+    <section class="main-banner">
+        <h1>Motocykle Do Wynajęcia</h1>
+        <p>Przeżyj niezapomniane chwile na dwóch kołach</p>
+        <button class="cta-button" onclick="SzukanieOfert('sekcja1')">Zobacz oferty</button>
+    </section>
+    <div class="gallery-container">
+        <section class="gallery" id="sekcja1" style="border: hidden;">
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(1)"><img src="motor1.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(2)"><img src="motor2.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(3)"><img src="motor3.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(4)"><img src="motor1.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(5)"><img src="motor2.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(6)"><img src="motor3.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(7)"><img src="motor3.png" alt="Motocykl 1"></button>
+        </section>
+    </div>
+    <div class="gallery-container">
+        <section class="gallery" style="border: hidden;">
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(1)"><img src="motor1.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(2)"><img src="motor2.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(3)"><img src="motor3.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(4)"><img src="motor1.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(5)"><img src="motor2.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(6)"><img src="motor3.png" alt="Motocykl 1"></button>
+            <button style="border: hidden; color: #333;" onclick="showMotorcycleInfo(7)"><img src="motor3.png" alt="Motocykl 1"></button>
+        </section>
+    </div>
+    <div id="motorInfo" class="motor-info">
+        <p id="motorDescription"></p>
+        <label for="startDate">Data początkowa:</label>
+        <input type="date" id="startDate" onchange="calculateDays()">
+        
+        <label for="endDate">Data końcowa:</label>
+        <input type="date" id="endDate" onchange="calculateDays()">
+        
+        <div class="result" id="result"></div>
+        <button class="close-btn" onclick="hideMotorcycleInfo()">Zamknij</button>
+    </div>
+    <div style="background-color: #c0b4b070; padding: 10px; justify-content: center; font-size: large; text-align: center;">
+    <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Nasze największe atuty:</h2>
+    <li style="font-size: x-large;">text text text text text text text</li>
+    <li style="font-size: larger;">text text text text text text text</li>
+    <li style="font-size: large;">text text text text text text text</li>
+    <li style="font-size: medium;">text text text text text text text</li>
+    </div>
+    <footer>
+        &copy; 2025 EasyRide. Wszystkie prawa zastrzeżone.
+    </footer>
+</body>
+</html>
